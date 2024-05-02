@@ -34,11 +34,11 @@ json_response = requests.get(reader_url, headers={"Accept": "application/json"})
 if json_response.status_code == 200:
     json_data = json_response.json()
     markdown_content = f"文档名称:{json_data['data']['title']}\n文档原地址:{json_data['data']['url']}\n{json_data['data']['content']}"
-
+    print(markdown_content)
 
 
 completion = client.chat.completions.create(
-    model="phi3",
+    model="yi-34b-chat-200k",
     messages=[{"role": "system", "content":"你是一个QA问答对构建专家，专门根据用户视频的内容构建"+question_num+"个高质量的"+question_language+"问题："},
             {"role":"user","content":"生成"+question_num+"个高质量的问题："+markdown_content+";并每个问题输出显示都要换行"},
             ],
